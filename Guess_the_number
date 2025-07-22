@@ -1,0 +1,37 @@
+
+import streamlit as st
+import random
+
+# Start game
+if "number" not in st.session_state:
+    st.session_state.number = random.randint(1, 50)
+    st.session_state.tries = 10
+    st.session_state.result = ""
+
+st.title("🎯 Guess the Number!")
+st.write("I'm thinking of a number between 1 and 50. Can you guess it?")
+st.write(f"Chances left: {st.session_state.tries}")
+
+guess = st.number_input("Enter your guess:", min_value=1, max_value=50, step=1)
+
+if st.button("Submit"):
+    if st.session_state.tries <= 0:
+        st.warning("Game over! Click Restart to play again.")
+    elif guess == st.session_state.number:
+        st.success("🎉 Correct! You won!")
+        st.write(f"Score: {st.session_state.tries * 10}")
+        st.session_state.tries = 0
+    elif guess < st.session_state.number:
+        st.session_state.tries -= 1
+        st.info("🔼 Try a higher number.")
+    elif guess > st.session_state.number:
+        st.session_state.tries -= 1
+        st.info("🔽 Try a lower number.")
+
+    if st.session_state.tries == 0 and guess != st.session_state.number:
+        st.error(f"❌ You lost! Number was: {st.session_state.number}")
+
+if st.button("🔁 Restart Game"):
+    st.session_state.number = random.randint(1, 50)
+    st.session_state.tries = 10
+    st.session_state.result = ""
