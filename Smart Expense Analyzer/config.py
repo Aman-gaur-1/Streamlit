@@ -106,18 +106,18 @@ CHART_LAYOUT = {
 #                                                               FULL PROMPT
 #
 #
-# Create a Python file called config.py for a Smart Expense Analyzer Streamlit app targeting Indian users.
-#
-# Include exactly three variables:
-#
-# 1. CATEGORIES — a dictionary with 8 keys: Food, Travel, Shopping, Bills, Entertainment, Transfer, Healthcare, Investment.
-# Each key maps to a list of lowercase keyword strings matching Indian bank transaction descriptions.
-# Include Indian apps, brands, UPI/NEFT terms, telecom providers, OTT platforms, fuel brands, and stock brokers.
-#
-# 2. TAG_MAP — a dictionary that maps common bank tag strings (like "food", "bill payments", "money transfer") to the matching CATEGORIES keys. Use lowercase keys.
-#
-# 3. CHART_LAYOUT — a dictionary of Plotly layout settings. Set paper_bgcolor and plot_bgcolor to transparent (rgba 0,0,0,0).
-# Set font_color to rgba(28,18,9,0.75), title_font_color to rgba(28,18,9,0.85), font_family to "DM Sans".
-# Include a legend key with font color rgba(28,18,9,0.80), bgcolor rgba(255,255,255,0.55), bordercolor rgba(180,145,90,0.20), and borderwidth 1.
-#
-# Add Hindi comments above each section explaining what it does. Output only the Python file, no explanation outside the file.
+Create a Python file called config.py for a Smart Expense Analyzer Streamlit app targeting Indian users.
+
+Include exactly three variables:
+
+1. CATEGORIES — a dictionary with 8 keys: Food, Travel, Shopping, Bills, Entertainment, Transfer, Healthcare, Investment.
+Each key maps to a list of lowercase keyword strings matching Indian bank transaction descriptions.
+Include Indian apps, brands, UPI/NEFT terms, telecom providers, OTT platforms, fuel brands, and stock brokers.
+
+2. TAG_MAP — a dictionary that maps common bank tag strings (like "food", "bill payments", "money transfer") to the matching CATEGORIES keys. Use lowercase keys.
+
+3. CHART_LAYOUT — a dictionary of Plotly layout settings. Set paper_bgcolor and plot_bgcolor to transparent (rgba 0,0,0,0).
+Set font_color to rgba(28,18,9,0.75), title_font_color to rgba(28,18,9,0.85), font_family to "DM Sans".
+Include a legend key with font color rgba(28,18,9,0.80), bgcolor rgba(255,255,255,0.55), bordercolor rgba(180,145,90,0.20), and borderwidth 1.
+
+Output only the Python file, no explanation outside the file.
