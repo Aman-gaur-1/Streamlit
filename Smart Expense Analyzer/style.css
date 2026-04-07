@@ -1,0 +1,508 @@
+/*
+Create a CSS file for a Streamlit app called Smart Expense Analyzer.
+
+Theme name: Midnight Gold (light/parchment variant)
+Design style: Premium fintech dashboard, warm parchment tones, gold accents
+
+Use these exact CSS variable values:
+--bg: #f7f3ee
+--bg2: #f0ebe3
+--surface: #ffffff
+--surface2: #fdf9f5
+--border: rgba(180,145,90,.15)
+--border-hi: rgba(217,119,6,.55)
+--primary: #d97706
+--secondary: #b45309
+--text: #1c1209
+--muted: rgba(28,18,9,.52)
+--r: 14px
+--r-lg: 20px
+--ease: cubic-bezier(.2,.9,.2,1)
+--dur: 220ms
+
+Fonts: Import Syne (400,600,700,800) and DM Sans (300,400,500 + italic) from Google Fonts. Use Syne for headings and labels, DM Sans for body.
+
+Style these Streamlit components:
+- App background with animated warm radial gradient mesh and a subtle SVG paper grain overlay
+- Sidebar with light parchment background, gold border
+- Metric cards with white gradient background, gold top-line accent, warm glow pseudo-element, hover lift effect
+- Tabs with pill shape, gold active state
+- Inputs, selectboxes with white background, gold focus ring
+- Buttons and download buttons with gold gradient, white text, pill shape, hover lift
+- File uploader with dashed gold border, matching browse button
+- Number input step buttons with gold tint
+- DataFrames and static tables with rounded corners, gold header row, hover row highlight
+- Expanders with white background, gold hover
+- Block border wrappers with glass-morphism effect, backdrop blur
+- Custom scrollbars with gold thumb
+- Page-load fadeUp animation on .block-container > div
+
+Output only the CSS file. No explanation.
+*/
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+:root {
+    --bg:        #f7f3ee;
+    --bg2:       #f0ebe3;
+    --surface:   #ffffff;
+    --surface2:  #fdf9f5;
+    --border:    rgba(180,145,90,.15);
+    --border-hi: rgba(217,119,6,.55);
+    --primary:   #d97706;
+    --secondary: #b45309;
+    --rose:      #e11d48;
+    --emerald:   #059669;
+    --sky:       #0284c7;
+    --violet:    #7c3aed;
+    --text:      #1c1209;
+    --muted:     rgba(28,18,9,.52);
+    --muted2:    rgba(28,18,9,.28);
+    --r:         14px;
+    --r-lg:      20px;
+    --ease:      cubic-bezier(.2,.9,.2,1);
+    --dur:       220ms;
+}
+
+html,
+body,
+[data-testid="stAppViewContainer"] {
+    background: var(--bg) !important;
+    color: var(--text) !important;
+    font-family: 'DM Sans', sans-serif !important;
+}
+
+/* Warm parchment mesh background */
+[data-testid="stAppViewContainer"]::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 80vw 60vh at 0% 0%,   rgba(251,191,36,.22) 0%, transparent 55%),
+        radial-gradient(ellipse 60vw 50vh at 100% 0%,  rgba(217,119,6,.10) 0%, transparent 50%),
+        radial-gradient(ellipse 70vw 55vh at 50% 100%, rgba(245,158,11,.10)  0%, transparent 55%),
+        radial-gradient(ellipse 45vw 40vh at 80%  55%, rgba(234,179,8,.08) 0%, transparent 50%),
+        linear-gradient(160deg, #f7f3ee 0%, #f2ebe0 50%, #ede5d8 100%);
+    pointer-events: none;
+    z-index: 0;
+    animation: mesh 16s var(--ease) infinite alternate;
+}
+
+/* Subtle paper grain */
+[data-testid="stAppViewContainer"]::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: .6;
+}
+
+@keyframes mesh {
+    0%   { opacity: .85; transform: scale(1); }
+    100% { opacity: 1;   transform: scale(1.03) translate(.8%, -.5%); }
+}
+
+[data-testid="stAppViewContainer"] > .main {
+    position: relative;
+    z-index: 1;
+    padding-top: 0 !important;
+}
+
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.block-container {
+    max-width: 1440px !important;
+    padding-top: .5rem !important;
+    padding-bottom: 1.4rem !important;
+}
+
+h1, h2, h3 {
+    font-family: 'Syne', sans-serif !important;
+    color: var(--text) !important;
+}
+
+small,
+[data-testid="stCaptionContainer"],
+.stCaption {
+    color: var(--muted) !important;
+    font-size: .78rem !important;
+    letter-spacing: .4px;
+}
+
+/* ── Sidebar ───────────────────────────────────────────── */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg,
+        rgba(255,251,245,.98),
+        rgba(247,243,238,.99)
+    ) !important;
+    border-right: 1px solid rgba(180,145,90,.18) !important;
+    box-shadow: 4px 0 24px rgba(180,145,90,.08);
+}
+
+section[data-testid="stSidebar"] * {
+    font-size: .88rem;
+    color: var(--text) !important;
+}
+
+/* ── Expander ──────────────────────────────────────────── */
+details[data-testid="stExpander"] {
+    border-radius: var(--r) !important;
+    border: 1px solid var(--border) !important;
+    background: rgba(255,255,255,.70) !important;
+    overflow: hidden;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(180,145,90,.08);
+}
+
+details[data-testid="stExpander"] summary {
+    padding: .75rem 1rem !important;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    letter-spacing: .3px;
+    color: var(--text) !important;
+}
+
+details[data-testid="stExpander"] summary:hover {
+    background: rgba(245,158,11,.06) !important;
+}
+
+/* ── Inputs ────────────────────────────────────────────── */
+[data-testid="stTextInput"] input,
+[data-testid="stNumberInput"] input,
+[data-testid="stDateInput"] input {
+    border-radius: var(--r) !important;
+    border: 1px solid rgba(180,145,90,.25) !important;
+    background: #ffffff !important;
+    color: var(--text) !important;
+    box-shadow: 0 1px 4px rgba(180,145,90,.08) inset;
+    transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+[data-testid="stTextInput"] input:focus,
+[data-testid="stDateInput"] input:focus {
+    border-color: var(--border-hi) !important;
+    box-shadow: 0 0 0 3px rgba(217,119,6,.12) !important;
+}
+
+[data-testid="stSelectbox"] > div > div,
+[data-testid="stMultiSelect"] > div > div {
+    border-radius: var(--r) !important;
+    border: 1px solid rgba(180,145,90,.25) !important;
+    background: #ffffff !important;
+    transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+[data-testid="stSelectbox"] > div > div:focus-within,
+[data-testid="stMultiSelect"] > div > div:focus-within {
+    border-color: var(--border-hi) !important;
+    box-shadow: 0 0 0 3px rgba(217,119,6,.12) !important;
+}
+
+[data-baseweb="tag"] {
+    border-radius: 999px !important;
+    background: rgba(217,119,6,.10) !important;
+    border: 1px solid rgba(217,119,6,.30) !important;
+    color: var(--secondary) !important;
+}
+
+/* ── Metric Cards ──────────────────────────────────────── */
+div[data-testid="stMetric"] {
+    border-radius: var(--r-lg) !important;
+    padding: 22px 20px 18px !important;
+    background: linear-gradient(145deg, #ffffff 0%, #fdf9f2 100%) !important;
+    border: 1px solid rgba(217,119,6,.18) !important;
+    box-shadow:
+        0 1px 0 rgba(255,255,255,.95) inset,
+        0 -1px 0 rgba(180,145,90,.10) inset,
+        0 8px 28px rgba(180,145,90,.14),
+        0 2px 6px rgba(180,145,90,.10);
+    transition:
+        transform var(--dur) var(--ease),
+        box-shadow var(--dur) var(--ease),
+        border-color var(--dur) var(--ease);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Gold top-line accent */
+div[data-testid="stMetric"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    opacity: .65;
+    border-radius: 0 0 2px 2px;
+}
+
+/* Warm glow spot */
+div[data-testid="stMetric"]::after {
+    content: "";
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,158,11,.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+div[data-testid="stMetric"]:hover {
+    transform: translateY(-4px);
+    border-color: rgba(217,119,6,.32) !important;
+    box-shadow:
+        0 1px 0 rgba(255,255,255,.95) inset,
+        0 16px 40px rgba(180,145,90,.20),
+        0 0 24px rgba(217,119,6,.10);
+}
+
+div[data-testid="stMetric"] [data-testid="stMetricLabel"] {
+    font-family: 'Syne', sans-serif !important;
+    font-size: .70rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: var(--muted) !important;
+}
+
+div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+    font-family: 'Syne', sans-serif !important;
+    font-size: 1.75rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -.5px;
+    color: var(--text) !important;
+}
+
+div[data-testid="stMetricDelta"] {
+    font-size: .78rem !important;
+    font-weight: 600 !important;
+    opacity: .9;
+}
+
+/* ── Tabs ──────────────────────────────────────────────── */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 4px !important;
+    padding: 4px 5px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(180,145,90,.20) !important;
+    background: rgba(255,255,255,.65) !important;
+    width: fit-content;
+    box-shadow: 0 2px 8px rgba(180,145,90,.08);
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 999px !important;
+    padding: .46rem .88rem !important;
+    color: var(--muted) !important;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: .83rem;
+    letter-spacing: .3px;
+    transition: all var(--dur) var(--ease);
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, rgba(217,119,6,.18), rgba(245,158,11,.12)) !important;
+    color: var(--secondary) !important;
+    box-shadow: 0 0 14px rgba(217,119,6,.14);
+}
+
+/* ── Block Borders ─────────────────────────────────────── */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    border-radius: var(--r-lg) !important;
+    border: 1px solid rgba(180,145,90,.16) !important;
+    background: rgba(255,255,255,.72) !important;
+    box-shadow: 0 6px 20px rgba(180,145,90,.10);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    transform: translateY(-2px);
+    border-color: rgba(217,119,6,.28) !important;
+}
+
+/* ── Buttons ───────────────────────────────────────────── */
+.stButton > button {
+    border-radius: 999px !important;
+    background: linear-gradient(135deg, #d97706, #b45309) !important;
+    border: 1px solid rgba(217,119,6,.30) !important;
+    color: #ffffff !important;
+    font-family: 'Syne', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: .4px;
+    padding: .55rem 1.2rem !important;
+    box-shadow: 0 4px 14px rgba(217,119,6,.25);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(217,119,6,.32);
+}
+
+/* ── Download button ───────────────────────────────────── */
+[data-testid="stDownloadButton"] button {
+    border-radius: 999px !important;
+    background: linear-gradient(135deg, #d97706, #b45309) !important;
+    border: 1px solid rgba(217,119,6,.30) !important;
+    color: #ffffff !important;
+    font-family: 'Syne', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: .4px;
+    padding: .55rem 1.2rem !important;
+    box-shadow: 0 4px 14px rgba(217,119,6,.25);
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+[data-testid="stDownloadButton"] button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(217,119,6,.32);
+}
+
+/* ── File uploader ─────────────────────────────────────── */
+[data-testid="stFileUploader"],
+[data-testid="stFileUploader"] > div,
+[data-testid="stFileUploaderDropzone"],
+[data-testid="stFileUploaderDropzone"] > div {
+    border-radius: var(--r) !important;
+    background: rgba(255,255,255,.80) !important;
+    color: var(--text) !important;
+}
+
+[data-testid="stFileUploaderDropzone"] {
+    border: 1.5px dashed rgba(217,119,6,.35) !important;
+}
+
+[data-testid="stFileUploaderDropzone"]:hover {
+    border-color: rgba(217,119,6,.65) !important;
+    background: rgba(255,255,255,.95) !important;
+}
+
+[data-testid="stFileUploaderDropzone"] span,
+[data-testid="stFileUploaderDropzone"] small,
+[data-testid="stFileUploaderDropzone"] p {
+    color: var(--muted) !important;
+}
+
+/* Browse files button inside uploader */
+[data-testid="stFileUploaderDropzone"] button,
+[data-testid="stFileUploader"] button {
+    border-radius: 999px !important;
+    background: rgba(217,119,6,.12) !important;
+    border: 1px solid rgba(217,119,6,.35) !important;
+    color: var(--secondary) !important;
+    font-family: 'Syne', sans-serif !important;
+    font-weight: 700 !important;
+    box-shadow: none !important;
+    padding: .4rem 1rem !important;
+    transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+[data-testid="stFileUploaderDropzone"] button:hover,
+[data-testid="stFileUploader"] button:hover {
+    background: rgba(217,119,6,.22) !important;
+    border-color: rgba(217,119,6,.55) !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ── Number input +/- buttons ──────────────────────────── */
+[data-testid="stNumberInput"] button,
+[data-testid="stNumberInput"] [data-testid="stNumberInputStepDown"],
+[data-testid="stNumberInput"] [data-testid="stNumberInputStepUp"] {
+    background: rgba(217,119,6,.10) !important;
+    border: 1px solid rgba(217,119,6,.22) !important;
+    color: var(--secondary) !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+
+[data-testid="stNumberInput"] button:hover {
+    background: rgba(217,119,6,.20) !important;
+    border-color: rgba(217,119,6,.40) !important;
+}
+
+/* ── DataTable ─────────────────────────────────────────── */
+[data-testid="stDataFrame"] {
+    border-radius: var(--r-lg) !important;
+    border: 1px solid rgba(180,145,90,.16) !important;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(180,145,90,.10);
+    background: #ffffff !important;
+}
+
+/* ── Divider ───────────────────────────────────────────── */
+hr {
+    border-color: rgba(180,145,90,.18) !important;
+    margin: 1rem 0 !important;
+}
+
+/* ── Success / Warning / Error boxes ──────────────────── */
+[data-testid="stAlert"] {
+    border-radius: var(--r) !important;
+    border-width: 1px !important;
+}
+
+/* ── Scrollbar ─────────────────────────────────────────── */
+*::-webkit-scrollbar       { width: 7px; height: 7px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+    background: rgba(217,119,6,.22);
+    border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+    background: rgba(217,119,6,.42);
+}
+
+/* ── Static table (st.table) ───────────────────────────── */
+[data-testid="stTable"] table {
+    background: rgba(255,255,255,.80) !important;
+    border-radius: var(--r) !important;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(180,145,90,.10);
+}
+
+[data-testid="stTable"] th,
+[data-testid="stTable"] td {
+    color: var(--text) !important;
+    border-color: rgba(180,145,90,.12) !important;
+}
+
+[data-testid="stTable"] th {
+    background: rgba(217,119,6,.06) !important;
+    font-family: 'Syne', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: .4px;
+    font-size: .78rem !important;
+    text-transform: uppercase;
+}
+
+[data-testid="stTable"] tr:hover td {
+    background: rgba(217,119,6,.04) !important;
+}
+
+/* ── Page-load animation ───────────────────────────────── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.block-container > div {
+    animation: fadeUp 340ms var(--ease) both;
+}
+
+
